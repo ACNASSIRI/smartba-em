@@ -277,6 +277,8 @@
       .wrap {
         flex: 1;
         min-width: 0;
+        width: 100%;
+        box-sizing: border-box;
         max-width: 1180px;
         margin: 0 auto;
         padding: 28px 24px 60px;
@@ -864,9 +866,261 @@
         margin-top: 26px;
         line-height: 1.6;
       }
+
+      /* ---------- splash / loading screen ---------- */
+      #splashScreen {
+        position: fixed;
+        inset: 0;
+        z-index: 500;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        background:
+          radial-gradient(
+            circle at 30% 20%,
+            rgba(255, 255, 255, 0.08),
+            transparent 55%
+          ),
+          linear-gradient(
+            135deg,
+            var(--marjane-red-dark),
+            var(--marjane-red) 55%,
+            var(--navy-2)
+          );
+        color: #fff;
+        text-align: center;
+        padding: 24px;
+        transition:
+          opacity 0.5s ease,
+          visibility 0.5s ease;
+      }
+      #splashScreen.hide {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .splash-logo-ring {
+        position: relative;
+        width: 96px;
+        height: 96px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .splash-logo-ring::before {
+        content: "";
+        position: absolute;
+        inset: -8px;
+        border-radius: 50%;
+        border: 2.5px solid rgba(255, 255, 255, 0.18);
+        border-top-color: #fff;
+        animation: splashSpin 1s linear infinite;
+      }
+      .splash-logo-mark {
+        width: 76px;
+        height: 76px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 35% 30%,
+          #ffffff,
+          var(--marjane-gold) 78%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.14) inset;
+        animation: splashPulse 1.6s ease-in-out infinite;
+        overflow: hidden;
+      }
+      .splash-logo-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 10px;
+      }
+      .splash-logo-mark .fallback {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: 26px;
+        color: var(--marjane-red-dark);
+      }
+      @keyframes splashSpin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes splashPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.06);
+        }
+      }
+      .splash-title {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: 21px;
+        letter-spacing: 0.01em;
+      }
+      .splash-sub {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        color: rgba(255, 255, 255, 0.78);
+        text-transform: uppercase;
+      }
+      .splash-dots {
+        display: flex;
+        gap: 6px;
+        margin-top: 4px;
+      }
+      .splash-dots span {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.85);
+        animation: splashDots 1.2s ease-in-out infinite;
+      }
+      .splash-dots span:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+      .splash-dots span:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      @keyframes splashDots {
+        0%,
+        80%,
+        100% {
+          opacity: 0.25;
+          transform: translateY(0);
+        }
+        40% {
+          opacity: 1;
+          transform: translateY(-4px);
+        }
+      }
+      .splash-credit {
+        position: absolute;
+        bottom: 22px;
+        left: 0;
+        right: 0;
+        font-size: 11.5px;
+        color: rgba(255, 255, 255, 0.6);
+        letter-spacing: 0.02em;
+      }
+      .splash-credit b {
+        color: rgba(255, 255, 255, 0.92);
+        font-weight: 600;
+      }
+
+      /* ---------- mobile refinements ---------- */
+      @media (max-width: 600px) {
+        .topbar {
+          padding: 12px 14px;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+        .brand .dept {
+          display: none;
+        }
+        .brand .mark {
+          width: 30px;
+          height: 30px;
+        }
+        .brand .name {
+          font-size: 15px;
+        }
+        .brand .store {
+          font-size: 10.5px;
+        }
+        .topbar-right {
+          gap: 6px;
+        }
+        .admin-pill {
+          padding: 5px 8px;
+          font-size: 11.5px;
+        }
+        .btn {
+          padding: 8px 12px;
+          font-size: 12.5px;
+        }
+        .wrap {
+          padding: 18px 12px 40px;
+        }
+        .page-head h1 {
+          font-size: 19px;
+        }
+        .kpi-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+        .kpi {
+          padding: 14px 14px 12px;
+        }
+        .kpi .value {
+          font-size: 19px;
+        }
+        .rank-date-badge {
+          white-space: normal;
+          font-size: 11px;
+        }
+        .search-row input[type="text"],
+        .search-row select {
+          flex: 1 1 100%;
+          min-width: 0;
+        }
+        .rank-row {
+          flex-wrap: wrap;
+          gap: 8px 14px;
+        }
+        .rank-metrics {
+          gap: 14px;
+          width: 100%;
+          justify-content: space-between;
+        }
+        .rayon-name {
+          width: 110px;
+          font-size: 12px;
+        }
+        .rayon-val {
+          width: 90px;
+          font-size: 11.5px;
+        }
+        .modal {
+          padding: 20px;
+        }
+        .splash-logo-ring {
+          width: 84px;
+          height: 84px;
+        }
+        .splash-logo-mark {
+          width: 66px;
+          height: 66px;
+        }
+        .splash-title {
+          font-size: 18px;
+        }
+      }
     </style>
   </head>
   <body>
+    <div id="splashScreen">
+      <div class="splash-logo-ring">
+        <div class="splash-logo-mark" id="splashLogoMark">
+          <span class="fallback">MJ</span>
+        </div>
+      </div>
+      <div class="splash-title">Marjane Group</div>
+      <div class="splash-sub">SmartBA · Chargement en cours</div>
+      <div class="splash-dots"><span></span><span></span><span></span></div>
+      <div class="splash-credit">
+        Application créée par <b>NASSIRI Achraf</b>
+      </div>
+    </div>
     <div class="topbar">
       <div class="brand">
         <div class="mark">
@@ -22355,10 +22609,24 @@
           render();
         });
 
+      /* ---------------- splash screen ---------------- */
+      function hideSplash() {
+        const splash = document.getElementById("splashScreen");
+        if (!splash) return;
+        splash.classList.add("hide");
+        setTimeout(() => splash.remove(), 600);
+      }
+
       /* ---------------- init ---------------- */
       (async function init() {
+        const splashStart = Date.now();
         await loadFromStorage();
         render();
+        // Keep the splash visible for a minimum, pleasant duration so the
+        // loading animation doesn't just flash on fast (local) loads.
+        const minDisplay = 1100;
+        const elapsed = Date.now() - splashStart;
+        setTimeout(hideSplash, Math.max(0, minDisplay - elapsed));
       })();
     </script>
   </body>
